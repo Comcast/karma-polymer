@@ -11,8 +11,8 @@ Add npm module to your dependencies:
 ```
 {
   "devDependencies": {
-    "karma": "~0.12.0",
-    "karma-polymer": "~0.1.3"
+    "karma": "^1.0.0",
+    "karma-polymer": "^1.0.0"
   }
 }
 ```
@@ -25,28 +25,34 @@ npm install karma-polymer --save-dev
 
 # Configuration
 
-> Note to add `polymer` **before** test framework (jasmine for example).
+> Note to add `polymer` **before** test framework (mocha for example).
 
-Add `polymer` to frameworks array and specify your `webcomponents-loader.js`/`webcomponents-lite.js`, `polymer.html` and project modules:
+Add `polymer` to frameworks array and specify the `client.polymer` options:
 
 ```
 // karma.conf.js
 module.exports = function(config) {
   config.set({
-    frameworks: ['polymer', 'jasmine'],
+    frameworks: ['polymer', 'mocha', 'sinon-chai'],
 
     files: [
-      // necessary for nested imports
-      { pattern: 'bower_components/**', included: false, served: true, watched: true },
-      'test/**/*Spec.js'
+      // Include any JS your web components rely on that
+      // are NOT imported by the web components themselves
+      'bundle.js',
     ],
 
     client: {
       polymer: {
         webcomponentsjs: 'bower_components/webcomponentsjs/webcomponents-loader.js',
         src: [
-          'bower_components/polymer/polymer.html',
-          'src/*.html'
+          'src/elements/**/!(demo|test)/*.html',
+        ],
+        tests: [
+          'src/elements/**/test/*.js',
+        ],
+        componentDependenciesFolder: 'bower_components',
+        componentJsSrc: [
+          'src/elements/**/*.js'
         ]
       },
     },
@@ -54,7 +60,12 @@ module.exports = function(config) {
 };
 ```
 
-Polymer adapter will add your modules to files array as `served`, but it can't detect any other imports inside this modules, so you should specify their manually (see `nested imports` above).
+- **webcomponentsjs:** `webcomponents-loader.js` (for Polymer 2.0/Web Components v1) or `webcomponents-lite.js` (for Polymer 1.0/Web Components v0)
+- **src:** your web components HTML source files
+- **tests:** your web components test files
+- **componentDependenciesFolder:** source for any 3rd-party dependencies your web components import (most likely `bower_components`)
+- **componentJsSrc:** if the JS for your web components is separate from your HTML (required if you want test coverage reports), specify the location of your web components' JS files here
+
 
 # Usage
 
@@ -126,6 +137,10 @@ it('should be true', function() {
 ```
 
 # Changelog
+
+### `1.0.0`
+
+* Support for Polymer v2.x / Web Components v1
 
 ### `0.1.5`
 
