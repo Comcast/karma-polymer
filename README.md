@@ -41,12 +41,14 @@ module.exports = function(config) {
       'test/**/*Spec.js'
     ],
 
-    polymer: {
-      platform: 'bower_components/platform/platform.js',
-      src: [
-        'bower_components/polymer/polymer.html',
-        'src/*.html'
-      ]
+    client: {
+      polymer: {
+        platform: 'bower_components/platform/platform.js',
+        src: [
+          'bower_components/polymer/polymer.html',
+          'src/*.html'
+        ]
+      },
     },
   });
 };
@@ -107,7 +109,7 @@ afterEach(function(done) {
 ```
 
 ### polymer.first, polymer.last, polymer.elements
- 
+
 Returns first, last or all created and existed elements respectively. Usefull with beforeEach blocks:
 
 ```js
