@@ -42,6 +42,9 @@ module.exports = function(config) {
     ],
 
     client: {
+      mocha: {
+        ui: 'tdd',
+      },
       polymer: {
         webcomponentsjs: 'bower_components/webcomponentsjs/webcomponents-loader.js',
         src: [
