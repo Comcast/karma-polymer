@@ -27,7 +27,7 @@ npm install karma-polymer --save-dev
 
 > Note to add `polymer` **before** test framework (jasmine for example).
 
-Add `polymer` to frameworks array and specify your `platform.js`, `polymer.html` and project modules:
+Add `polymer` to frameworks array and specify your `webcomponents-loader.js`/`webcomponents-lite.js`, `polymer.html` and project modules:
 
 ```
 // karma.conf.js
@@ -43,7 +43,7 @@ module.exports = function(config) {
 
     client: {
       polymer: {
-        platform: 'bower_components/platform/platform.js',
+        webcomponentsjs: 'bower_components/webcomponentsjs/webcomponents-loader.js',
         src: [
           'bower_components/polymer/polymer.html',
           'src/*.html'
@@ -58,7 +58,7 @@ Polymer adapter will add your modules to files array as `served`, but it can't d
 
 # Usage
 
-The polymer adapter creates necessary `script` element for load `platform.js` and a set of specified `import` elements (don't forget to specify `polymer.html` itself).
+The polymer adapter creates necessary `script` element to load `webcomponents-loader.js` (recommended for Web Components v1 specs) or `webcomponents-lite.js` (recommended for Web Components v0 specs) and a set of specified `import` elements (don't forget to specify `polymer.html` itself).
 
 Polymer adapter provides usefull object `polymer` in global space:
 
