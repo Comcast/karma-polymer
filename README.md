@@ -11,7 +11,7 @@ Add npm module to your dependencies:
 ```
 {
   "devDependencies": {
-    "karma": "^1.0.0",
+    "karma": "^1.8.0",
     "karma-polymer": "^1.0.0"
   }
 }
